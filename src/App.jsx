@@ -2,6 +2,10 @@ import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } 
 import './App.css'
 import app from './Firebase';
 import Register from './components/register/Register'
+import { ToastContainer } from 'react-toastify';
+import Login from './components/login/Login';
+import LayoutOne from './layouts/LayoutOne';
+import Home from './pages/Home';
 
 
 
@@ -9,7 +13,12 @@ function App() {
 
   const myRoute = createBrowserRouter(createRoutesFromElements(
     <Route>
-      <Route path='/' element={<Register/>}/>
+
+      <Route path='/' element={<LayoutOne/>}/>
+      <Route path='/Register' element={<Register/>}/>
+      <Route path='/login' element={<Login/>}/>
+      <Route index element={<Home/>}/>
+
     </Route>
   ))
 
@@ -17,6 +26,7 @@ function App() {
   return (
     <>
      <RouterProvider router={myRoute}/>
+     <ToastContainer/>
     </>
   )
 }

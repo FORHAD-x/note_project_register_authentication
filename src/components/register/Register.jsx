@@ -1,8 +1,12 @@
 import React, { useState } from 'react'
 import { IoIosEyeOff } from "react-icons/io";
 import { IoIosEye } from "react-icons/io";
-import { getAuth, createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, updateProfile } from "firebase/auth";
+import 'react-toastify/dist/ReactToastify.css';
+import { Bounce, toast } from 'react-toastify';
 import app from '../../Firebase';
+import { Link, useNavigate } from 'react-router-dom';
+
 
 const Register = () => {
 
@@ -16,8 +20,9 @@ const [showPass, setShowPass] = useState(false)
 
 const [password, setPassword] = useState("")
 const [passwordError, setPasswordError] = useState("")
-// ---------------------------------------------------//
 
+const navigate = useNavigate()
+// ---------------------------------------------------//
 
 
 // ----------------- authentication --------------//
@@ -45,10 +50,35 @@ const handelSubmit =()=>{
   .then((userCredential) => {
     // Signed up 
     const user = userCredential.user;
-    sendEmailVerification(auth.currentUser)
-    .then(() => {
-      console.log("otp ")
-    });
+    updateProfile(auth.currentUser, {
+      displayName: name ,
+      photoURL: "https://static.thenounproject.com/png/1820914-512.png"
+    }).then(() => {
+      sendEmailVerification(auth.currentUser)
+      .then(() => {
+        navigate('/login')
+        toast.info('Register done', {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+          });
+      });
+    })
+
+
+
+
+    
+ 
+
+
+
   })
   .catch((error) => {
     const errorCode = error.code;
@@ -66,7 +96,7 @@ const handelSubmit =()=>{
 }
 
 
-
+      
   return (
     <div className='container flex justify-center items-center h-screen'>
     <div className="card px-8 py-6 rounded-lg bg-[#91acb1] w-72 ">
@@ -93,7 +123,9 @@ const handelSubmit =()=>{
 
        
        <button onClick={handelSubmit} datatype="Register" className="rainbow-hover flex m-auto  mt-4"><span className="sp px-20 py-2">Register</span></button>
-
+       <div className='bottom_text'>
+        <p className=' mt-5 flex justify-center font-sans text-sm font-light leading-normal'>Already have an account ? <Link className='ml-1 text-sm font-sans leading-normal text-green-300' to="/login"> login </Link></p>
+      </div>
       </div>
     </div>
     </div>
