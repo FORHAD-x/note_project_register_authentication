@@ -6,6 +6,8 @@ import { ToastContainer } from 'react-toastify';
 import Login from './components/login/Login';
 import LayoutOne from './layouts/LayoutOne';
 import Home from './pages/Home';
+import Bin from './pages/Bin';
+import Pined from './pages/Pined';
 
 
 
@@ -14,10 +16,14 @@ function App() {
   const myRoute = createBrowserRouter(createRoutesFromElements(
     <Route>
 
-      <Route path='/' element={<LayoutOne/>}/>
       <Route path='/Register' element={<Register/>}/>
       <Route path='/login' element={<Login/>}/>
-      <Route index element={<Home/>}/>
+
+      <Route path='/' element={<LayoutOne/>}>
+        <Route index element={<Home/>}/>
+        <Route path='/pin_notes' element={<Pined/>}/>
+        <Route path='/bin_notes' element={<Bin/>}/>
+      </Route>
 
     </Route>
   ))

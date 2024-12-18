@@ -1,17 +1,17 @@
 import React, { useEffect } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import Navbar from '../components/navbar/Navbar'
-import Home from '../pages/Home'
+import Navbar from  '../components/navbar/Navbar'
+import SideNav from '../components/sidenav/SideNav'
 
 const LayoutOne = () => {
 
-  const sliceUser = useSelector((state)=>state.userData.value)
-  const navigate  =useNavigate()
+  const sliceUser = useSelector((alu)=>alu.userData.value)
+  const navigate  = useNavigate()
   
 
   useEffect(()=>{
-    if(sliceUser == null){
+    if(sliceUser==null){
       navigate('/login')
     }
   },)
@@ -19,9 +19,11 @@ const LayoutOne = () => {
 
   return (
     <>
-    {/* <Home/> */}
     <Navbar/>
+    <div className='flex'>
+    <SideNav/>
     <Outlet/>
+    </div>
 
     </>
   )

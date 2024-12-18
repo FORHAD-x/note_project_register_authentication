@@ -98,11 +98,11 @@ const handelSubmit =()=>{
       <div className="my-6">
 
         <p>{emailError}</p>
-        <input onChange={(e)=>{setEmail(e.target.value) ,setEmailError("")}} className="p-2 my-2 bg-slate-200 rounded w-[100%] focus:outline-blue-600" placeholder="Email" type="email" />
+        <input onChange={(e)=>{setEmail(e.target.value) ,setEmailError("")}} className="p-2 my-2  rounded w-[100%] focus:outline-blue-600" placeholder="Email" type="email" />
         
        <p>{passwordError}</p>
        <div className='relative'>
-       <input  onChange={(e)=>{setPassword(e.target.value),setPasswordError("")}} className="p-2 my-2 bg-slate-200 rounded w-[100%] focus:outline-blue-600" placeholder="Password" type={showPass? "text" :"password"} />
+       <input  onChange={(e)=>{setPassword(e.target.value),setPasswordError("")}} className="p-2 my-2  rounded w-[100%] focus:outline-blue-600" placeholder="Password" type={showPass? "text" :"password"} />
        {
         showPass?
         <IoIosEye onClick={()=>setShowPass(!showPass)} className='absolute top-[50%] right-4 translate-y-[-50%]'/>

@@ -1,10 +1,12 @@
 import React from 'react'
-import Navbar from '../components/navbar/Navbar'
+import AllNotes from '../components/allnotes/AllNotes'
 
 const Home = () => {
   return (
     <>
-    <Navbar/>
+      <div className='pl-[60px] pt-[54px] dark:bg-black w-full'>
+        <AllNotes/>
+      </div>
     </>
   )
 }

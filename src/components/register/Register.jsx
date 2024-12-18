@@ -72,13 +72,6 @@ const handelSubmit =()=>{
     })
 
 
-
-
-    
- 
-
-
-
   })
   .catch((error) => {
     const errorCode = error.code;
@@ -99,7 +92,7 @@ const handelSubmit =()=>{
       
   return (
     <div className='container flex justify-center items-center h-screen'>
-    <div className="card px-8 py-6 rounded-lg bg-[#91acb1] w-72 ">
+    <div className="card px-8 py-6 rounded-lg bg-[#5E5C5C] w-72 ">
 
         <h1 className="text-center font-bold text-3xl text-white"> Register</h1>
       <div className="my-6">
