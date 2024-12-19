@@ -14,8 +14,8 @@ const sliceUser = useSelector((alu)=>alu.userData.value)
         <div className="navbar flex justify-between items-center">
             <div className="nav_logo">
                 <Link>
-                <img src="public/Notes.png" alt="" className='dark:hidden'/>
-                <img src="public/Notes (1).png" alt="" className='hidden dark:block'/>
+                <img src="/public/Notes.png" alt="" className='dark:hidden'/>
+                <img src="/public/Notes (1).png" alt="" className='hidden dark:block'/>
                 </Link>
             </div>
             <div className='user_info flex items-center gap-4'>

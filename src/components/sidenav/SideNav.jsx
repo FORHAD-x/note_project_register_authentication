@@ -40,14 +40,14 @@ const SideNav = () => {
         </ul>
         {localStorage.getItem("mode") == "light" ? (
           <button
-            className="py-1 px-3 bg-black text-xl text-white rounded-sm"
+            className="py-1 m-7 px-3 bg-black text-xl text-white rounded-sm"
             onClick={handelMode}
           >
             Dark
           </button>
         ) : (
           <button
-            className="py-1 px-3 bg-purple-500 text-white rounded-sm text-xl"
+            className="py-1 m-7  px-3 bg-white text-black rounded-sm text-xl"
             onClick={handelMode}
           >
             Light
