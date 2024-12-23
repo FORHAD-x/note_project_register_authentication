@@ -4,6 +4,8 @@ import './SideNav.css'
 import { MdEditNote } from "react-icons/md";
 import { BiSolidPin } from "react-icons/bi";
 import { ImBin2 } from "react-icons/im";
+import { MdOutlineLightMode } from "react-icons/md";
+import { BsFillMoonFill } from "react-icons/bs";
 
 
 const SideNav = () => {
@@ -40,17 +42,18 @@ const SideNav = () => {
         </ul>
         {localStorage.getItem("mode") == "light" ? (
           <button
-            className="py-1 m-7 px-3 bg-black text-xl text-white rounded-sm"
+            className="py-3 px-14 ml-2  mt-52 bg-black text-xl text-white rounded-lg transition-all duration-[.4s]"
             onClick={handelMode}
           >
-            Dark
+          <BsFillMoonFill />
           </button>
         ) : (
           <button
-            className="py-1 m-7  px-3 bg-white text-black rounded-sm text-xl"
+            className="py-3 px-14 ml-2 mt-52 bg-white text-black rounded-lg text-xl transition-all duration-[.4s]"
             onClick={handelMode}
           >
-            Light
+          <MdOutlineLightMode />
+            
           </button>
         )}
     </nav>

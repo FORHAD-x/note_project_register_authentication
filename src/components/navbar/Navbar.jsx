@@ -1,11 +1,19 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { Link, useNavigate } from 'react-router-dom'
+import { FiLogOut } from "react-icons/fi";
 
 const Navbar = () => {
 
 const sliceUser = useSelector((alu)=>alu.userData.value)
+const navigate = useNavigate()
+const dispatch =useDispatch()
+const handelLogout =()=>{
+  navigate("/login")
+  localStorage.removeItem("userData")
+  dispatch(userDataReducer(null))
 
+}
 
   return (
     <>
@@ -23,6 +31,7 @@ const sliceUser = useSelector((alu)=>alu.userData.value)
                       <img src={sliceUser?.photoURL} alt="userPhoto" className='dark:bg-white'/>
                 </div>
                 <h2 className='dark:text-white text-[16px] font-semibold text-black font-sans'>{sliceUser?.displayName}</h2>
+                < FiLogOut onClick={handelLogout}/>
             </div>
         </div>
         </div>

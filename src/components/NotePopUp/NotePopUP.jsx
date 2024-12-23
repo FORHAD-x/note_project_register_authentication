@@ -3,7 +3,13 @@ import { GiTireIronCross } from "react-icons/gi";
 import { CgColorPicker } from "react-icons/cg";
 import { BiSolidColor } from "react-icons/bi";
 import { getDatabase, push, ref, set } from "firebase/database";
+import { useSelector } from 'react-redux';
 const NotePopUP = ({cardValue , popCross}) => {
+
+const sliceUser = useSelector((state)=>state.userData.value)
+
+
+
 
   const [showColor, setShowColor] = useState(false)
   const [bgcolor, setBgcolor]     = useState("#FBFBFB")
@@ -16,19 +22,11 @@ const NotePopUP = ({cardValue , popCross}) => {
 const db = getDatabase();
 
 
-
-
-
-
-
-
-
-
 // -------------------------//
 const handelButton =()=>{
       if(!formdata.noteTitle){
         setFormdata((prev)=>({...prev ,noteTitleError:"Enter your note"}))
-
+        
       }
       if(!formdata.noteDescription){
         setFormdata((prev)=>({...prev ,noteDescriptionError:"Enter your your Description "}))
@@ -36,17 +34,25 @@ const handelButton =()=>{
       else{
         set(push(ref(db, 'allNotes/')), {
           noteTitle:formdata.noteTitle,
-          noteDescription:formdata.noteDescription
+          noteDescription:formdata.noteDescription,
+          bgcolor:bgcolor,
+          creatorId:sliceUser.uid,
+          pin:false
         });
+        popCross()
+        setFormdata((prev)=>({...prev,
+          noteTitle:"", noteDescription:"", noteTitleError:"", noteDescriptionError:""
+        }))
+        setBgcolor("#FBFBFB")
       }
 }
 
-  console.log(formdata)
+  // console.log(sliceUser.uid)
 
   return (
     <>
     <div className={`${cardValue? "w-full": "w-0 right-[-100px]"} transition-all duration-[1s] h-screen dark:bg-[#C6E7FF8C]  bg-[#00000049] absolute top-0 right-0 flex justify-center items-center `}>
-        <div onClick={popCross} className={`${cardValue? "block" :"hidden"} absolute top-20 right-72 text-red-700 text-2xl`}>
+        <div onClick={popCross} className={`${cardValue? "block" :"hidden"} absolute top-20 right-10 text-red-700 text-2xl`}>
           <GiTireIronCross/>
         </div>
 
@@ -55,12 +61,12 @@ const handelButton =()=>{
             {/* note title */}
             <h2 className='font-poppins text-[24px] text-black font-bold'>Note Title </h2>
             <p className='text-[14px] text-red-500'>{formdata.noteTitleError}</p>
-            <input onChange={(e)=> setFormdata((prev)=>({...prev ,noteTitle : e.target.value}))} className='w-full h-[45px] text-lg  font-poppins font-semibold border-2 border-[#D1D1D1] outline-none p-5 my-[20px] rounded-md' type="text" placeholder='Enter Your Note Title'  />
+            <input value={formdata.noteTitle} onChange={(e)=> setFormdata((prev)=>({...prev ,noteTitle : e.target.value, noteTitleError:""}))} className='w-full h-[45px] text-lg  font-poppins font-semibold border-2 border-[#D1D1D1] outline-none p-5 my-[20px] rounded-md' type="text" placeholder='Enter Your Note Title'  />
             
             {/* Description */}
             <h2 className='font-poppins text-[24px] text-black font-bold'>Description</h2>
             <p className='text-[14px] text-red-500'>{formdata.noteDescriptionError}</p>
-            <textarea onChange={(e)=> setFormdata((prev)=>({...prev ,noteDescription : e.target.value}))}  className='w-full h-[200px] text-lg  font-poppins font-semibold border-2 border-[#D1D1D1 outline-none p-5 my-[20px] rounded-md' type="text" />
+            <textarea value={formdata.noteDescription} onChange={(e)=> setFormdata((prev)=>({...prev ,noteDescription : e.target.value, noteDescriptionError:""}))}  className='w-full h-[200px] text-lg  font-poppins font-semibold border-2 border-[#D1D1D1 outline-none p-5 my-[20px] rounded-md' type="text" />
         
          <div className='flex justify-between'>
           <div className='colors overflow-hidden w-[300px] flex items-center gap-4 relative'>
