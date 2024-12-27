@@ -56,7 +56,7 @@ const handelButton =()=>{
           <GiTireIronCross/>
         </div>
 
-        <div style={{background:bgcolor}} className={`${cardValue? "block" :"hidden"} w-[731px] p-8 rounded-lg bg-[#FBFBFB] `}>
+        <div style={{background:bgcolor}} className={`${cardValue? "block" :"hidden"} w-[731px] p-8 z-10 rounded-lg bg-[#FBFBFB] `}>
             
             {/* note title */}
             <h2 className='font-poppins text-[24px] text-black font-bold'>Note Title </h2>
@@ -84,7 +84,7 @@ const handelButton =()=>{
                     </button>
                 </div>
             </div>
-              <button onClick={handelButton} className="px-3 z-30 py-3 bg-rose-400 rounded-md text-white relative font-semibold after:-z-20 after:absolute after:h-1 after:w-1 after:bg-rose-800 after:left-5 overflow-hidden after:bottom-0 after:translate-y-full after:rounded-md after:hover:scale-[300] after:hover:transition-all after:hover:duration-700 after:transition-all after:duration-700 transition-all duration-700 [text-shadow:3px_5px_2px_#be123c;] hover:[text-shadow:2px_2px_2px_#fda4af] text-lg">
+              <button onClick={handelButton} className="px-3 z-30 py-3 bg-[#1d1c1c] rounded-md text-white relative font-semibold after:-z-20 after:absolute after:h-1 after:w-1 after:bg-[#474747] after:left-5 overflow-hidden after:bottom-0 after:translate-y-full after:rounded-md after:hover:scale-[300] after:hover:transition-all after:hover:duration-700 after:transition-all after:duration-700 transition-all duration-700 [text-shadow:3px_5px_2px_#1d1c1c;] hover:[text-shadow:2px_2px_2px_#fda4af] text-lg">
                 ADD NOTE
               </button>
          </div>
