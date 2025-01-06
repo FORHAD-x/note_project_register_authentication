@@ -33,7 +33,7 @@ const SideNav = () => {
   };
   return (
     <>
-    <nav className='sideNav dark:bg-black dark:shadow-[inset_-5px_0px_9px_0px_#434190] pt-[7px]  bg-[#FBFBFB] shadow-[10px_-6px_8px_0px_#00000024] w-[157px] h-screen transition-all duration-[.4s]'>
+    <nav className='sideNav dark:bg-black dark:shadow-[inset_-5px_0px_9px_0px_#434190] pt-[7px]  bg-[#FBFBFB] shadow-[10px_-6px_8px_0px_#00000024] w-[157px] min-h-screen transition-all duration-[.4s]'>
         <h2 className='dark:text-white text-[20px] px-[21px]  font-medium font-poppins text-[#646262]'>All Note List</h2>
         <ul className='w-[157px]'>
             <li><NavLink to="/" className={({ isActive}) =>[isActive ? "activePage" : "DeActivePage",].join(" ")}><MdEditNote/> All Notes</NavLink></li>

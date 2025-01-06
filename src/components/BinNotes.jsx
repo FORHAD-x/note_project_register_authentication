@@ -1,4 +1,4 @@
-import { getDatabase, onValue, ref, remove } from 'firebase/database';
+import { getDatabase, onValue, push, ref, remove, set } from 'firebase/database';
 import React, { useEffect, useState } from 'react'
 import { RxReset } from "react-icons/rx";
 import { useSelector } from 'react-redux';
@@ -22,8 +22,20 @@ const [allBinNote ,setAllBinNote] = useState([])
     remove(ref(db, 'removeNote/' +removeNoteId))
   }
 
+  const handelRecover =(recoverData)=>{
+    set(push(ref(db, 'allNotes/' )), {
+            noteTitle:recoverData.noteTitle,
+            noteDescription:recoverData.noteDescription,
+            bgcolor:recoverData.bgcolor,
+            creatorId:sliceUser.uid,
+            pin:recoverData.pin
+    });
+    remove(ref(db,'removeNote/' +recoverData.key))
+  }
 
-
+  const handelDeleteAll =()=>{
+     remove(ref(db, 'removeNote/'));
+  }
 
 
 
@@ -44,10 +56,13 @@ const [allBinNote ,setAllBinNote] = useState([])
 
   return (
     <>
+    <div className='flex m-3 '>
+        <button onClick={()=>handelDeleteAll()} className="inline-flex ml-[440px] items-center px-4 py-2  bg-slate-700 transition ease-in-out delay-75 text-white text-sm font-medium rounded-md hover:-translate-y-1 hover:scale-110">Delete all</button>
+    </div>
     {
       allBinNote.map((item)=>(
 
-        <div key={item.key} className='flex m-3 gap-2'>
+        <div key={item.key} className='flex m-3 gap-2 '>
         <h1 className='text-[16px] w-40 font-poppins font-medium mb-2'>{item.noteTitle}</h1>
         <div>
           {/* =============delete button */}
@@ -61,9 +76,9 @@ const [allBinNote ,setAllBinNote] = useState([])
                 xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                  stroke-width="2"
-                  stroke-linejoin="round"
-                  stroke-linecap="round">
+                  strokeWidth="2"
+                  strokeLinejoin="round"
+                  strokeLinecap="round">
                 </path>
               </svg>
               Delete
@@ -71,7 +86,7 @@ const [allBinNote ,setAllBinNote] = useState([])
         </div>
         <div>
           {/* ================reset button */}
-          <button className="inline-flex items-center px-4 py-2  bg-emerald-500 transition ease-in-out delay-75 hover:bg-red-700 text-white text-sm font-medium rounded-md hover:-translate-y-1 hover:scale-110">
+          <button onClick={()=> handelRecover(item)} className="inline-flex items-center px-4 py-2  bg-emerald-500 transition ease-in-out delay-75 text-white text-sm font-medium rounded-md hover:-translate-y-1 hover:scale-110">
               <RxReset className='h-5 w-5 mr-2' />
                 Reset
           </button>

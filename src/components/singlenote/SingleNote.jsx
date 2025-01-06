@@ -2,18 +2,21 @@ import React, { useEffect, useState } from 'react'
 import { getDatabase, ref, onValue, update, remove, set, push } from "firebase/database";
 import { useSelector } from 'react-redux';
 import { PiDotsThreeVerticalBold } from "react-icons/pi";
+import NotePopUP from '../NotePopUp/NotePopUP';
 
 const SingleNote = () => {
 
-
-// ======== redux ============//
-const sliceUser = useSelector((state)=>state.userData.value)
-
-
-
-const [allNote ,setAllNote] = useState([])
-const [ShowMenu,setShowMenu]= useState(false)
-const [clickId,setClickId]= useState("")
+    
+    // ======== redux ============//
+    const sliceUser = useSelector((state)=>state.userData.value)
+    
+    
+    
+    const [allNote ,setAllNote] = useState([])
+    const [ShowMenu,setShowMenu]= useState(false)
+    const [clickId,setClickId]= useState("")
+    const [Popup, setPopUp] = useState(false)
+    const [editData, setEditData] = useState(null)
 
 
 
@@ -54,10 +57,6 @@ const [clickId,setClickId]= useState("")
     }
 
 
-
-
-
-
     useEffect(()=>{
         onValue(ref(db, 'allNotes/'), (snapshot) => {
             let arr = []
@@ -70,10 +69,11 @@ const [clickId,setClickId]= useState("")
         });
     },[])
    
+
    
   return (
     <>
-    <div className='flex flex-wrap gap-5'>
+    <div className='flex flex-wrap gap-5 mb-4'>
     {
         allNote.map((item)=>(
             <div key={item.key} style={{background:item.bgcolor}} className='w-[200px] h-[180px] border-2 border-[#C6E7FF] rounded-lg p-2'>               
@@ -84,7 +84,7 @@ const [clickId,setClickId]= useState("")
                     <div className='px-2 py-2 ml-auto absolute top-full right-0 w-fit flex flex-col bg-gray-300'>
                         <button onClick={()=>handelUpdate(item.key)}>Pin</button>
                         <hr/>
-                        <button>Edit</button>
+                        <button onClick={()=>{setPopUp(true) ,setEditData(item)}}>Edit</button>
                         <hr/>
                         <button onClick={()=>handelRemove(item)}>Remove</button>
                     </div>
@@ -97,6 +97,7 @@ const [clickId,setClickId]= useState("")
         ))
     }
     </div>
+    <NotePopUP  cardValue={Popup} editNoteData={editData} popCross={()=>setPopUp(false)}/>
     </>
   )
 }

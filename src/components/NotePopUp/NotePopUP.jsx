@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { GiTireIronCross } from "react-icons/gi";
 import { CgColorPicker } from "react-icons/cg";
 import { BiSolidColor } from "react-icons/bi";
-import { getDatabase, push, ref, set } from "firebase/database";
+import { getDatabase, push, ref, set, update } from "firebase/database";
 import { useSelector } from 'react-redux';
-const NotePopUP = ({cardValue , popCross}) => {
+const NotePopUP = ({cardValue , popCross ,editNoteData}) => {
 
 const sliceUser = useSelector((state)=>state.userData.value)
 
@@ -47,7 +47,28 @@ const handelButton =()=>{
       }
 }
 
-  // console.log(sliceUser.uid)
+// ============== update notes=============//
+const handelUpdate =()=>{
+      update(ref(db, 'allNotes/' +editNoteData.key),{
+        noteTitle:formdata.noteTitle,
+        noteDescription:formdata.noteDescription,
+        bgcolor:bgcolor,
+      });
+      popCross()
+      setFormdata((prev)=>({...prev,
+        noteTitle:"", noteDescription:"", noteTitleError:"", noteDescriptionError:""
+      }))
+      setBgcolor("#FBFBFB")
+
+}
+
+useEffect(()=>{
+  if(editNoteData){
+    setFormdata((prev)=>({...prev , noteTitle:editNoteData.noteTitle ,noteDescription:editNoteData.noteDescription}))
+  }
+},[editNoteData]);
+
+
 
   return (
     <>
@@ -66,7 +87,7 @@ const handelButton =()=>{
             {/* Description */}
             <h2 className='font-poppins text-[24px] text-black font-bold'>Description</h2>
             <p className='text-[14px] text-red-500'>{formdata.noteDescriptionError}</p>
-            <textarea value={formdata.noteDescription} onChange={(e)=> setFormdata((prev)=>({...prev ,noteDescription : e.target.value, noteDescriptionError:""}))}  className='w-full h-[200px] text-lg  font-poppins font-semibold border-2 border-[#D1D1D1 outline-none p-5 my-[20px] rounded-md' type="text" />
+            <textarea value={formdata.noteDescription} onChange={(e)=> setFormdata((prev)=>({...prev ,noteDescription : e.target.value, noteDescriptionError:""}))}  className='w-full h-[200px] text-lg  font-poppins font-semibold border-2 border-[#D1D1D1 outline-none p-5 my-[20px] rounded-md' type="text"  placeholder='Enter Your Note Title'  />
         
          <div className='flex justify-between'>
           <div className='colors overflow-hidden w-[300px] flex items-center gap-4 relative'>
@@ -84,9 +105,16 @@ const handelButton =()=>{
                     </button>
                 </div>
             </div>
+            {
+              editNoteData?
+              <button onClick={handelUpdate}  className="px-3 z-30 py-3 bg-[#1d1c1c] rounded-md text-white relative font-semibold after:-z-20 after:absolute after:h-1 after:w-1 after:bg-[#474747] after:left-5 overflow-hidden after:bottom-0 after:translate-y-full after:rounded-md after:hover:scale-[300] after:hover:transition-all after:hover:duration-700 after:transition-all after:duration-700 transition-all duration-700 [text-shadow:3px_5px_2px_#1d1c1c;] hover:[text-shadow:2px_2px_2px_#fda4af] text-lg">
+                UPDATE
+              </button>
+              :
               <button onClick={handelButton} className="px-3 z-30 py-3 bg-[#1d1c1c] rounded-md text-white relative font-semibold after:-z-20 after:absolute after:h-1 after:w-1 after:bg-[#474747] after:left-5 overflow-hidden after:bottom-0 after:translate-y-full after:rounded-md after:hover:scale-[300] after:hover:transition-all after:hover:duration-700 after:transition-all after:duration-700 transition-all duration-700 [text-shadow:3px_5px_2px_#1d1c1c;] hover:[text-shadow:2px_2px_2px_#fda4af] text-lg">
                 ADD NOTE
               </button>
+            }
          </div>
         </div>
 

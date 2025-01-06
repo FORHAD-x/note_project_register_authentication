@@ -3,7 +3,7 @@ import { FiPlusCircle } from "react-icons/fi";
 import NotePopUP from '../NotePopUp/NotePopUP';
 
 
-const AllNotes = () => {
+const AddNotes = () => {
 
   const [Popup, setPopUp] = useState(false)
   
@@ -18,4 +18,4 @@ const AllNotes = () => {
   )
 }
 
-export default AllNotes
+export default AddNotes
